@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import QuestionShowPage from "./components/QuestionShowPage";
-import "./App.css";
-
-const numbers = [1, 2, 3, 4];
+import QuestionShowPage from './components/QuestionShowPage';
+import QuestionIndexPage from './components/QuestionIndexPage';
+import './App.css';
 
 function App() {
-  return (
-    <div className="ui container">
-      {/* in JSX, self-closing tags must be closed. for example <img> doesn't work */}
-      {/* instead <img /> must be used */}
-      <QuestionShowPage />
-      {/* We can use map to generate lists */}
-      {/* {numbers.map(number => (
+	return (
+		<div className="ui container">
+			{/* in JSX, self-closing tags must be closed. for example <img> doesn't work */}
+			{/* instead <img /> must be used */}
+			{/* <QuestionIndexPage /> */}
+			<QuestionShowPage />
+			{/* We can use map to generate lists */}
+			{/* {numbers.map(number => (
         <QuestionShowPage key={number} number={number} />
       ))} */}
-    </div>
-  );
+		</div>
+	);
 }
 
 // A react Component is a function that returns a React Element.
