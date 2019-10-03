@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import QuestionDetails from './QuestionDetails';
 import AnswerList from './AnswerList';
-import oneQuestionData from './oneQuestionData';
+import Spinner from './Spinner';
+import { Question } from '../requests';
 import DeleteButton from './DeleteButton';
 
 // Question Show Component
@@ -9,9 +11,21 @@ class QuestionShowPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			question: { ...oneQuestionData }
+			question: null,
+			isLoading: true
 		};
 		this.deleteAnswer = this.deleteAnswer.bind(this);
+	}
+
+	componentDidMount() {
+		// Currently 111 is hard-coded, but we are just
+		// fetching a real question with id 111 from the server
+		Question.one(111).then((question) => {
+			this.setState({
+				question: question,
+				isLoading: false
+			});
+		});
 	}
 	deleteQuestion() {
 		this.setState({
@@ -31,11 +45,7 @@ class QuestionShowPage extends Component {
 	}
 	render() {
 		if (!this.state.question) {
-			return (
-				<main>
-					<h1>Question Does not exist</h1>
-				</main>
-			);
+			return <Spinner />;
 		}
 		return (
 			<div>

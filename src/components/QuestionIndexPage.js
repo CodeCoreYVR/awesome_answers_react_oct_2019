@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
 
 import '../styles/QuestionIndexPage.css';
-import questionData from './questionData';
 import NewQuestionForm from './NewQuestionForm';
 import CurrentDateTime from './CurrentDateTime';
+import Spinner from './Spinner';
+import { Question } from '../requests';
 // import DeleteButton from './DeleteButton';
 
 class QuestionIndexPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			questions: [ ...questionData ],
+			// Initially the list of questions is empty until we fetch
+			// them from server
+			questions: [],
+			// Initially, before we have fetched the questions
+			// from the server, we will display a loader(spinner)
+			// and once we have fetched the questions, we will change
+			// the isLoading property to 'false',
+			// and display the list of questions
+			isLoading: true,
 			showTime: true
 		};
 		this.createQuestion = this.createQuestion.bind(this);
 	}
+
+	componentDidMount() {
+		// 1. Fetch All the questions here
+		// 2. update state questions with the questions that you get back from awesome answers rails
+		// 3. change isLoading to false
+
+		// When the QuestionIndexPage component is mounted,
+		// we will fetch all of the questions from the server
+		Question.all().then((questions) => {
+			this.setState({
+				questions: questions,
+				isLoading: false
+			});
+		});
+	}
+
 	createQuestion(params) {
 		// Update the list of questions within our state
 		// by adding a new question to that list
@@ -54,13 +79,22 @@ class QuestionIndexPage extends Component {
 		});
 	}
 	render() {
+		if (!this.state.questions) {
+			return <Spinner />;
+		}
+		const fileredQuestion = this.state.questions.filter((q, index) => {
+			if (this.props.notShowAll || index < 5) {
+				return true;
+			}
+			return false;
+		});
 		return (
 			<main className="QuestionIndexPage">
 				{this.state.showTime && <CurrentDateTime />}
 				<h1>Questions</h1>
 				<NewQuestionForm onCreateQuestion={this.createQuestion} />
 				<ul>
-					{this.state.questions.map((question, index) => (
+					{fileredQuestion.map((question, index) => (
 						<li key={index}>
 							<p>
 								{question.title}

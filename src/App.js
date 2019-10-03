@@ -9,7 +9,7 @@ function App() {
 		<div className="ui container">
 			{/* in JSX, self-closing tags must be closed. for example <img> doesn't work */}
 			{/* instead <img /> must be used */}
-			<QuestionIndexPage />
+			<QuestionIndexPage notShowAll={false} />
 			<QuestionShowPage />
 			{/* We can use map to generate lists */}
 			{/* {numbers.map(number => (

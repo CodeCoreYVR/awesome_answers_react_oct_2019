@@ -8,7 +8,7 @@ class CurrentDateTime extends React.Component {
 		};
 	}
 	componentDidMount() {
-		console.log('componentDidMount');
+		// console.log('componentDidMount');
 
 		// This method is called whenever the component is rendered
 		// in the DOM
@@ -33,11 +33,11 @@ class CurrentDateTime extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log('componentDidUpdate');
+		// console.log('componentDidUpdate');
 	}
 
 	componentWillUnmount() {
-		console.log('componentWillUnmount');
+		// console.log('componentWillUnmount');
 		// This method is called before the component is removed from
 		// the DOM. Use it to clean up setIntervals, setTimeouts, even listeners, etc
 
