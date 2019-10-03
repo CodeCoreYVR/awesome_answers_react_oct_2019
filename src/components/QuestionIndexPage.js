@@ -2,14 +2,36 @@ import React, { Component } from 'react';
 
 import '../styles/QuestionIndexPage.css';
 import questionData from './questionData';
+import NewQuestionForm from './NewQuestionForm';
+import CurrentDateTime from './CurrentDateTime';
 // import DeleteButton from './DeleteButton';
 
 class QuestionIndexPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			questions: [ ...questionData ]
+			questions: [ ...questionData ],
+			showTime: true
 		};
+		this.createQuestion = this.createQuestion.bind(this);
+	}
+	createQuestion(params) {
+		// Update the list of questions within our state
+		// by adding a new question to that list
+		this.setState((state) => {
+			return {
+				questions: [
+					{
+						...params,
+						created_at: new Date(),
+						// Since we don't have a db yet,
+						// we need to generate ids for ourselves
+						id: Math.max(...state.questions.map((question) => question.id)) + 1
+					},
+					...state.questions
+				]
+			};
+		});
 	}
 	deleteQuestion(id) {
 		console.log('id: ', id);
@@ -34,7 +56,9 @@ class QuestionIndexPage extends Component {
 	render() {
 		return (
 			<main className="QuestionIndexPage">
+				{this.state.showTime && <CurrentDateTime />}
 				<h1>Questions</h1>
+				<NewQuestionForm onCreateQuestion={this.createQuestion} />
 				<ul>
 					{this.state.questions.map((question, index) => (
 						<li key={index}>

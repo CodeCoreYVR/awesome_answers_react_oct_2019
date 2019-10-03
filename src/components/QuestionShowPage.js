@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import QuestionDetails from './QuestionDetails';
 import AnswerList from './AnswerList';
-import questionData from './questionData';
 import oneQuestionData from './oneQuestionData';
 import DeleteButton from './DeleteButton';
 
