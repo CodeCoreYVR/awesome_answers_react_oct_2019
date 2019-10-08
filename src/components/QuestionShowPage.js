@@ -21,17 +21,17 @@ class QuestionShowPage extends Component {
     // All components are rendered by a Route (like this one)
     // will be given props by that Route component
     // One fo these props, called match which contains information
-    // related to the pattern matched path defined in App.js 
+    // related to the pattern matched path defined in App.js
     // <Route path="/questions/:id/:test" component={QuestionShowPage}
     // match: {
-      // params: {
-        // id: <whatever-id-passed>, 
-        // test: <whatever-test-passed>
-      // }
+    // params: {
+    // id: <whatever-id-passed>,
+    // test: <whatever-test-passed>
+    // }
     // }
     // Because the Route looked like the one above, the Route component
-    // pattern matched on the ':id', and will give us a 
-    // param called id within the property of match called param, 
+    // pattern matched on the ':id', and will give us a
+    // param called id within the property of match called param,
     // as used below
     Question.one(this.props.match.params.id).then(question => {
       this.setState({
@@ -62,6 +62,7 @@ class QuestionShowPage extends Component {
     if (!this.state.question) {
       return <Spinner />;
     }
+    // debugger;
     return (
       <div>
         <h1>Question Number {this.props.number}</h1>

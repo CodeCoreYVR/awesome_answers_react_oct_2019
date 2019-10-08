@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import "../styles/QuestionIndexPage.css";
 import NewQuestionForm from "./NewQuestionForm";
-import CurrentDateTime from "./CurrentDateTime";
 import Spinner from "./Spinner";
 import { Question } from "../requests";
 // import DeleteButton from './DeleteButton';
@@ -20,8 +19,7 @@ class QuestionIndexPage extends Component {
       // and once we have fetched the questions, we will change
       // the isLoading property to 'false',
       // and display the list of questions
-      isLoading: true,
-      showTime: true
+      isLoading: true
     };
     this.createQuestion = this.createQuestion.bind(this);
   }
@@ -40,23 +38,30 @@ class QuestionIndexPage extends Component {
       });
     });
   }
-
   createQuestion(params) {
-    // Update the list of questions within our state
-    // by adding a new question to that list
-    this.setState(state => {
-      return {
-        questions: [
-          {
-            ...params,
-            created_at: new Date(),
-            // Since we don't have a db yet,
-            // we need to generate ids for ourselves
-            id: Math.max(...state.questions.map(question => question.id)) + 1
-          },
-          ...state.questions
-        ]
-      };
+    // When our new question is submitted,
+    // send the form data in a fetch request to the server
+    Question.create(params).then(question => {
+      Question.one(question.id).then(question => {
+        // This is how you do navigation using react-router-dom
+        // The 'Route' component gives all components that it renders
+        // (like this one) a prop named 'history'
+        // This prop is an array-like structure that keeps track of
+        // the entire navigation history within the app
+        // To navigate to a new path, we use the 'push' method
+        // to push a new path onto this history array-like thing
+        this.setState(state => {
+          return {
+            questions: [
+              {
+                ...question,
+                ...state.questions
+              }
+            ]
+          };
+        });
+        this.props.history.push(`/questions/${question.id}`);
+      });
     });
   }
   deleteQuestion(id) {
@@ -91,7 +96,6 @@ class QuestionIndexPage extends Component {
     });
     return (
       <main className="QuestionIndexPage">
-        {this.state.showTime && <CurrentDateTime />}
         <h1>Questions</h1>
         <NewQuestionForm onCreateQuestion={this.createQuestion} />
         <ul>

@@ -43,7 +43,7 @@ class App extends React.Component {
 			   */}
           <Switch>
             <Route path="/" exact component={QuestionIndexPage} />
-            <Route path="/questions" component={QuestionIndexPage} />
+            <Route path="/questions" exact component={QuestionIndexPage} />
             <Route path="/questions/:id" component={QuestionShowPage} />
           </Switch>
         </div>
