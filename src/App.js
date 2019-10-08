@@ -5,7 +5,7 @@ import QuestionShowPage from "./components/QuestionShowPage";
 import QuestionIndexPage from "./components/QuestionIndexPage";
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
-import { User } from "./requests";
+import { User, Session } from "./requests";
 import Spinner from "./components/Spinner";
 import "./App.css";
 
@@ -32,6 +32,14 @@ class App extends React.Component {
         this.setState({ loading: false });
       });
   };
+
+  signOut = () => {
+    Session.destroy().then(() => {
+      this.setState({
+        currentUser: null
+      });
+    });
+  };
   componentDidMount() {
     console.log("componentDidMount");
     this.getUser();
@@ -44,7 +52,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="ui container">
-          <Navbar currentUser={currentUser} />
+          <Navbar currentUser={currentUser} onSignOut={this.signOut} />
           {/* Switch allows for one Route component to render its
 				  component prop. 
 				  If there are multiple that could match that path,
