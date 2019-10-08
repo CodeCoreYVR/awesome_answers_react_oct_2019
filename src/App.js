@@ -15,6 +15,7 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
+    console.log("componentDidMount");
     // This gives us a cookie that represents us being logged in
     // Now, when we make POST requests to the server to make a Question
     // we will be authorized/authenticated
