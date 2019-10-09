@@ -22,13 +22,20 @@ function Navbar(props) {
     >
       {/* <a href="/questions">Questions</a> */}
       <NavLink to="/questions">Questions</NavLink>
-      {!currentUser && <NavLink to="sign_in">Sign In</NavLink>}
-      {currentUser && (
+      {currentUser ? (
         <>
+          {/* above 👆 is the react fragment it allows
+          returning multiple react elements without a container
+         */}
           <span>Welcome {currentUser.full_name}</span>
           <a href="#sign_out" onClick={handleSignOutClick}>
             Sign Out
           </a>
+        </>
+      ) : (
+        <>
+          <NavLink to="/sign_in">Sign In</NavLink>
+          <NavLink to="/sign_up">Sign Up</NavLink>
         </>
       )}
 

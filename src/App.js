@@ -5,7 +5,9 @@ import QuestionShowPage from "./components/QuestionShowPage";
 import QuestionIndexPage from "./components/QuestionIndexPage";
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
+import { SignUpPage } from "./components/SignUpPage";
 import { User, Session } from "./requests";
+import AuthRoute from "./components/AuthRoute";
 import Spinner from "./components/Spinner";
 import "./App.css";
 
@@ -63,12 +65,28 @@ class App extends React.Component {
           <Switch>
             <Route path="/" exact component={QuestionIndexPage} />
             <Route path="/questions" exact component={QuestionIndexPage} />
+            {/* This 👇 will protect QuestionShowPage and won't let anyone 
+              to see it unless they are signedIn but, we don't wanna do that 
+              for show action, it is just to demo AuthRoute
+             */}
+            {/* <AuthRoute
+              isAuthenticated={currentUser}
+              path="/questions/:id"
+              component={QuestionShowPage}
+            /> */}
             <Route path="/questions/:id" component={QuestionShowPage} />
             <Route
               path="/sign_in"
               // component={SignInPage}
               render={routeProps => (
                 <SignInPage onSignIn={this.getUser} {...routeProps} />
+              )}
+            />
+            <Route
+              exact
+              path="/sign_up"
+              render={routeProps => (
+                <SignUpPage {...routeProps} onSignUp={this.getUser} />
               )}
             />
           </Switch>
