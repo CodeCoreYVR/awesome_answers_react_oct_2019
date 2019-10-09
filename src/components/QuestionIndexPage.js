@@ -21,7 +21,6 @@ class QuestionIndexPage extends Component {
       // and display the list of questions
       isLoading: true
     };
-    this.createQuestion = this.createQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -36,20 +35,6 @@ class QuestionIndexPage extends Component {
         questions: questions,
         isLoading: false
       });
-    });
-  }
-  createQuestion(params) {
-    // When our new question is submitted,
-    // send the form data in a fetch request to the server
-    Question.create(params).then(question => {
-      // This is how you do navigation using react-router-dom
-      // The 'Route' component gives all components that it renders
-      // (like this one) a prop named 'history'
-      // This prop is an array-like structure that keeps track of
-      // the entire navigation history within the app
-      // To navigate to a new path, we use the 'push' method
-      // to push a new path onto this history array-like thing
-      this.props.history.push(`/questions/${question.id}`);
     });
   }
   deleteQuestion(id) {
@@ -85,7 +70,6 @@ class QuestionIndexPage extends Component {
     return (
       <main className="QuestionIndexPage">
         <h1>Questions</h1>
-        <NewQuestionForm onCreateQuestion={this.createQuestion} />
         <ul>
           {fileredQuestion.map((question, index) => (
             <li key={index}>

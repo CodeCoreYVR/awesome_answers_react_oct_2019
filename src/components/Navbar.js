@@ -22,6 +22,7 @@ function Navbar(props) {
     >
       {/* <a href="/questions">Questions</a> */}
       <NavLink to="/questions">Questions</NavLink>
+      <NavLink to="/questions/new">Ask a Question</NavLink>
       {currentUser ? (
         <>
           {/* above 👆 is the react fragment it allows

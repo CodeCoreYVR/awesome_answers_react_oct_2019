@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import QuestionShowPage from "./components/QuestionShowPage";
 import QuestionIndexPage from "./components/QuestionIndexPage";
+import QuestionNewPage from "./components/QuestionNewPage";
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
 import { SignUpPage } from "./components/SignUpPage";
@@ -65,6 +66,11 @@ class App extends React.Component {
           <Switch>
             <Route path="/" exact component={QuestionIndexPage} />
             <Route path="/questions" exact component={QuestionIndexPage} />
+            <AuthRoute
+              isAuthenticated={currentUser}
+              path="/questions/new"
+              component={QuestionNewPage}
+            />
             {/* This 👇 will protect QuestionShowPage and won't let anyone 
               to see it unless they are signedIn but, we don't wanna do that 
               for show action, it is just to demo AuthRoute
