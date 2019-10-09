@@ -80,7 +80,15 @@ class App extends React.Component {
               path="/questions/:id"
               component={QuestionShowPage}
             /> */}
-            <Route path="/questions/:id" component={QuestionShowPage} />
+            <Route
+              path="/questions/:id"
+              render={routeProps => (
+                <QuestionShowPage
+                  {...routeProps}
+                  currentUser={this.state.currentUser}
+                />
+              )}
+            />
             <Route
               path="/sign_in"
               // component={SignInPage}

@@ -41,8 +41,8 @@ class QuestionShowPage extends Component {
     });
   }
   deleteQuestion() {
-    this.setState({
-      question: null
+    Question.delete(this.state.question.id).then(data => {
+      this.props.history.push("/questions");
     });
   }
   deleteAnswer(answerId) {
@@ -63,6 +63,8 @@ class QuestionShowPage extends Component {
       return <Spinner />;
     }
     // debugger;
+    const { id: currentUser } = this.props.currentUser;
+    const { id: author } = this.state.question.author;
     return (
       <div>
         <h1>Question Number {this.props.number}</h1>
@@ -74,7 +76,9 @@ class QuestionShowPage extends Component {
           // created_at={this.state.question.created_at}
           {...this.state.question}
         />
-        <DeleteButton onDeleteClick={() => this.deleteQuestion()} />
+        {currentUser === author && (
+          <DeleteButton onDeleteClick={() => this.deleteQuestion()} />
+        )}
         <AnswerList
           onAnswerDelete={this.deleteAnswer}
           answers={this.state.question.answers}
