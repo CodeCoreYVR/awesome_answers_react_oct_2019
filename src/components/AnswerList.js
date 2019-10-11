@@ -7,10 +7,10 @@ function AnswerList(props) {
 		<ul className="AnswerList">
 			{props.answers.map((answer) => (
 				<li className="ui segment" key={answer.id}>
-					<h1>{answer.author.full_name}</h1>
+					<h1>{'answer.author.full_name'}</h1>
 					<AnswerDetails
 						body={answer.body}
-						author_fullname={answer.author.full_name}
+						author_fullname={'answer.author.full_name'}
 						created_at={new Date(answer.created_at)}
 						onDeleteClick={() => props.onAnswerDelete(answer.id)}
 					/>

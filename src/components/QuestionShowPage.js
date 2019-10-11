@@ -33,9 +33,11 @@ class QuestionShowPage extends Component {
     // pattern matched on the ':id', and will give us a
     // param called id within the property of match called param,
     // as used below
+    console.log(this.props)
     Question.one(this.props.match.params.id).then(question => {
+      
       this.setState({
-        question: question,
+        question: question ,
         isLoading: false
       });
     });
@@ -59,12 +61,18 @@ class QuestionShowPage extends Component {
     });
   }
   render() {
-    if (!this.state.question) {
+    if (this.state.isLoading) {
       return <Spinner />;
     }
     // debugger;
     const { id: currentUser } = this.props.currentUser;
     const { id: author } = this.state.question.author;
+    if (!this.state.question){
+      
+      return (<div>Question Doesnt exsist</div>)
+    }
+
+ 
     return (
       <div>
         <h1>Question Number {this.props.number}</h1>

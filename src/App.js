@@ -10,6 +10,7 @@ import { SignUpPage } from "./components/SignUpPage";
 import { User, Session } from "./requests";
 import AuthRoute from "./components/AuthRoute";
 import Spinner from "./components/Spinner";
+import NotFoundPage from "./components/NotFound";
 import "./App.css";
 
 class App extends React.Component {
@@ -102,6 +103,11 @@ class App extends React.Component {
               render={routeProps => (
                 <SignUpPage {...routeProps} onSignUp={this.getUser} />
               )}
+            />
+            
+           <Route component={NotFoundPage}
+            // We are using it as a lat route so incase no routes are matched from the 
+            // top this route should take over and return NotFoundPage Componenet 
             />
           </Switch>
         </div>
